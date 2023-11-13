@@ -73,6 +73,8 @@ body{
 .timer-list{
     background-color: white;
     margin-right: 32px;
+    max-width: 88%;
+    min-width: 88%;
 }
 
 .timer-list-header{
@@ -133,7 +135,6 @@ body{
     width: 100%;
     margin-bottom: 8px;
     outline: none;
-    caret-color: transparent;
 }
 
 .timer-list-modal-container-button{
@@ -176,6 +177,20 @@ body{
     font-family: 'Open Sans', sans-serif;
     min-width: 256px;
     min-height: 256px;
+}
+
+.task-list-achievement{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    word-wrap: break-word;
+    column-gap: 16px;
+}
+.task-list-achievement button{
+    min-height: 20px;
+    min-width: 20px;
+    max-height: 20px;
+    max-width: 20px;
 }
 
 

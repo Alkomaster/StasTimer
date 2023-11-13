@@ -6,9 +6,15 @@ let time = JSON.parse(localStorage.getItem("time")) || {
 };
 
 
-
 let acheievements = JSON.parse(localStorage.getItem("achievements")) || {
-    my: []
+    my: [],
+}
+
+function dell(i){
+    acheievements.my.splice(i, 1);
+    console.log(acheievements.my)
+    localStorage.setItem("achievements", JSON.stringify(acheievements));
+    achAppend(acheievements.my);
 }
 function achAppend(array){
     if (array.length === 0){
@@ -16,9 +22,10 @@ function achAppend(array){
     }
     else{
         document.getElementById("achievements").innerHTML = '';
-        for(i = 0; i < array.length; i++){
+        for(let i = 0; i < array.length; i++){
             let p = document.createElement("p");
-            p.innerHTML = `${i+1}. ${array[i].trim()}`;
+            p.innerHTML = `${i+1}. ${array[i].trim()} <button id="delete_achieve" onclick="dell(${i})"><img src="./img/delete.png"></button>`;
+            p.classList.add('task-list-achievement');
             document.getElementById("achievements").append(p);
         }
     }
@@ -123,7 +130,6 @@ document.getElementById("timer-restart").addEventListener("click", () => {
     time.total = 0;
     cat.style.left = "-90px"
     localStorage.setItem("time", JSON.stringify(time))
-    console.log(4)
     document.getElementById("anime_girl_img").src = "./img/anime1-transformed.png";
 });
 // delete localStorage["Ключ"]
