@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>StasBB Timer</title>
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,1,0" />
+
+  </head>
+    <body>
+        <section class="cat">
+            <div class="cat-rel"></div>
+            <img src="./img/cat.gif" class="cat-gif" id="cat">
+        </section>
+        <section class="timer">
+            <div class="a"></div>
+            <div class="timer-body-wrapper" id="timer-body-wrapper">
+                <div class="timer-body">
+                    <div id="timer-hours"></div>
+                    <div id="timer-minutes"></div>
+                    <div id="timer-seconds"></div>
+                </div>
+                <div class="timer-button-wrapper">
+                    <button class="timer-button" id="timer-restart"><span class="material-symbols-outlined">stop</span></button>
+                    <button class="timer-button" id="timer-play"><span class="material-symbols-outlined">play_pause</span></button>
+                    <button class="timer-button" id="timer-stop"><span class="material-symbols-outlined">pause</span></button>
+                </div>
+            </div>
+            <div class="timer-list" id="timer-list">
+                <h1 class="timer-list-header">Список достижений</h1>
+                <div class="timer-list-content" id="achievements">
+
+                </div>
+                <button class="timer-list-add" id="timer_add">Добавить</button>
+                <div class="timer-list-modal" id="modal">
+                        <div class="timer-list-modal-container" id="modal_container">
+                            <h1 class="timer-list-modal-container-header">Добавьте достижение</h1>
+                            <input class="timer-list-modal-container-input" id="modal_input"><br>
+                            <button class="timer-list-modal-container-button" id="modal_add">Добавить</button>
+                        </div>
+                </div>
+            </div>
+        </section>
+        <section class="anime">
+            
+            <div class="anime-wrapper">
+                <div class="anime-girl-container" id="anime_girl"><img class="anime-girl" id="anime_girl_img" src="./img/anime1-transformed.png"><div class="anime-girl-phrase" id="phrase">Ты молодец!</div></div>
+                
+            </div>
+        </section>
+        
+        
+	<script src="index.js"></script>
+  </body>
+</html>
