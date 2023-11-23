@@ -5,10 +5,15 @@ let time = JSON.parse(localStorage.getItem("time")) || {
     total: 0
 };
 
-
 let acheievements = JSON.parse(localStorage.getItem("achievements")) || {
     my: [],
 }
+let play = false;
+let timeout = false;
+
+let complimentFlag = false;
+let modalFlag = false;
+
 
 function dell(i){
     acheievements.my.splice(i, 1);
@@ -16,6 +21,7 @@ function dell(i){
     localStorage.setItem("achievements", JSON.stringify(acheievements));
     achAppend(acheievements.my);
 }
+
 function achAppend(array){
     if (array.length === 0){
         document.getElementById("achievements").innerHTML = `<h3 style="text-align: center";>У вас пока нет достижений(</h3>`
@@ -24,18 +30,27 @@ function achAppend(array){
         document.getElementById("achievements").innerHTML = '';
         for(let i = 0; i < array.length; i++){
             let p = document.createElement("p");
-            p.innerHTML = `${i+1}. ${array[i].trim()} <button id="delete_achieve" onclick="dell(${i})"><img src="./img/delete.png"></button>`;
+            p.innerHTML = `${i+1}. ${array[i].trim()} <button id="delete_achieve" onclick="dell(${i})"><img src="./img/trash.svg"></button>`;
             p.classList.add('task-list-achievement');
             document.getElementById("achievements").append(p);
         }
     }
 }
-achAppend(acheievements.my);
+
+
+
+
 document.body.addEventListener("click", () => {
-    if ((event.target.id != "timer_add") && (event.target.closest("#modal_container") == null)){
+    if ((modalFlag) && (event.target.id != "timer_add") && (event.target.closest("#modal_container") == null)){
         document.getElementById("modal").style.display = "none";
+        modalFlag = false;
+    }
+    if ((complimentFlag) && (event.target.id != "compliment") && (event.target.closest("#complimet_modal_container") == null)){
+        document.getElementById("complimet_modal").classList.remove("compliment-modal")
+        complimentFlag = false;
     }
 })
+
 document.getElementById("modal_add").addEventListener("click", () => {
     if (document.getElementById("modal_input").value.trim() != ""){
         acheievements.my.push(document.getElementById("modal_input").value);
@@ -47,20 +62,7 @@ document.getElementById("modal_add").addEventListener("click", () => {
 
 })
 
-
-document.getElementById("timer-seconds").innerHTML = time.seconds < 10 ? '0' + time.seconds : time.seconds;
-document.getElementById("timer-minutes").innerHTML = time.minutes < 10 ? '0' + time.minutes + ':' : time.minutes + ':';
-document.getElementById("timer-hours").innerHTML = time.hours < 10 ? '0' + time.hours + ':' : time.hours + ':';
-
-document.getElementById("timer_add").addEventListener("click", () => {document.getElementById("modal").style.display = "flex";})
-
-const cat = document.getElementById("cat")
-
-cat.style.left = -90 + time.total * 0.525 + "px";
-
-
-let play = false;
-let timeout = false;
+document.getElementById("timer_add").addEventListener("click", () => {document.getElementById("modal").style.display = "flex"; modalFlag = true;})
 
 document.getElementById("timer-play").addEventListener("click", () => {
     if (play === false){
@@ -95,7 +97,7 @@ document.getElementById("timer-play").addEventListener("click", () => {
             time.total++;
             localStorage.setItem("time", JSON.stringify(time))
             console.log(-90 + time.total * 2 + "px")
-            cat.style.left = -90 + time.total * 0.525 + "px";
+            cat.style.left = -90 + time.total * ((window.innerWidth - 140) / 3600) + "px";
         }, 1000);
     }
     else{
@@ -132,4 +134,27 @@ document.getElementById("timer-restart").addEventListener("click", () => {
     localStorage.setItem("time", JSON.stringify(time))
     document.getElementById("anime_girl_img").src = "./img/anime1-transformed.png";
 });
+
+document.getElementById("compliment").addEventListener("click", () => {
+    document.getElementById("complimet_modal").classList.add("compliment-modal");
+    complimentFlag = true;
+})
+
+
+
+achAppend(acheievements.my);
+
+document.getElementById("timer-seconds").innerHTML = time.seconds < 10 ? '0' + time.seconds : time.seconds;
+document.getElementById("timer-minutes").innerHTML = time.minutes < 10 ? '0' + time.minutes + ':' : time.minutes + ':';
+document.getElementById("timer-hours").innerHTML = time.hours < 10 ? '0' + time.hours + ':' : time.hours + ':';
+
+
+
+const cat = document.getElementById("cat")
+cat.style.left = -90 + time.total * (window.innerWidth / 3600) + "px";
+
+
+
+
+
 // delete localStorage["Ключ"]
