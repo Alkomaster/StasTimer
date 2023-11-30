@@ -178,14 +178,17 @@ body{
 
 .anime-girl-phrase{
     visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     content: "";
-    padding-top: 20px;
+    font-size: 18px;
     text-align: start;
     left: 60%;
     bottom: 65%;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 60px;
+    padding-right: 40px;
     background-image: url("img/pngwing.com.png");
     background-repeat: no-repeat;
     background-size: contain;

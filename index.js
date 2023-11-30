@@ -11,6 +11,7 @@ let acheievements = JSON.parse(localStorage.getItem("achievements")) || {
 let catPhrase = {
     total: time.seconds + time.minutes * 60 + time.hours * 3600,
     phrases : {
+        "d": "Ты молодец!",
         "300": "Ты реально сел за это, молодец!",
         "600": "Давай, продолжай в том же духе",
         "1800": "Уже полчаса продуктивной работы, так держать!",
@@ -89,7 +90,12 @@ document.getElementById("timer-play").addEventListener("click", () => {
                 document.getElementById("phrase").style.visibility="visible";
                 document.getElementById("phrase").innerHTML = catPhrase.phrases[catPhrase.total];
                 setTimeout(() => {document.getElementById("phrase").style.visibility="hidden";}, 10000);
-            } 
+            }
+            else if(catPhrase.total % 60 == 0){
+                document.getElementById("phrase").style.visibility="visible";
+                document.getElementById("phrase").innerHTML = catPhrase.phrases["d"];
+                setTimeout(() => {document.getElementById("phrase").style.visibility="hidden";}, 10000);
+            }
             if (time.seconds == 59){
                 time.seconds = 0;
                 document.getElementById("timer-seconds").innerHTML = '0' + time.seconds;
