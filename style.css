@@ -268,7 +268,43 @@ body{
 
 @media (max-height: 800px){
     html{
-        overflow: scroll;
+        overflow-y: scroll;
         height: 100%;
+    }
+}
+
+body{
+    background-color: black;
+    width: 100vw;
+}
+html{
+    min-width: 100vw;
+}
+
+@media (max-width: 650px) {
+    .timer{
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        padding-top: 0px;
+        
+    }
+    .compliment{
+        width: 100%;
+        margin: 24px 8px 64px 8px;
+        
+    }
+    .cat{
+        display: none;
+    }
+    .a{
+        align-items: start;
+    }
+    html, body {margin: 0; width: 100%; overflow: hidden}
+    .timer-body-wrapper{
+        margin: 0px 8px 64px 8px;
+    }
+    .timer-list{
+        margin: 0px auto;
+        width: 100%;
     }
 }
