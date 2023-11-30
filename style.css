@@ -180,16 +180,18 @@ body{
     visibility: hidden;
     position: absolute;
     content: "";
-    padding-top: 85px;
-    text-align: center;
+    padding-top: 20px;
+    text-align: start;
     left: 60%;
-    bottom: 60%;
+    bottom: 65%;
+    padding-left: 50px;
+    padding-right: 50px;
     background-image: url("img/pngwing.com.png");
     background-repeat: no-repeat;
     background-size: contain;
     font-family: 'Open Sans', sans-serif;
-    min-width: 256px;
-    min-height: 256px;
+    min-width: 252px;
+    min-height: 128px;
 }
 
 .task-list-achievement{

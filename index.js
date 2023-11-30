@@ -2,12 +2,28 @@ let time = JSON.parse(localStorage.getItem("time")) || {
     seconds: 0,
     minutes: 0, 
     hours: 0,
-    total: 0
 };
 
 let acheievements = JSON.parse(localStorage.getItem("achievements")) || {
     my: [],
-}
+};
+
+let catPhrase = {
+    total: time.seconds + time.minutes * 60 + time.hours * 3600,
+    phrases : {
+        "300": "Ты реально сел за это, молодец!",
+        "600": "Давай, продолжай в том же духе",
+        "1800": "Уже полчаса продуктивной работы, так держать!",
+        "3600": "ТЫ ЗАНИМАЕШЬСЯ УЖЕ ЧАС, АМОГУС КРУТЫШКА!!!",
+        "5400": "Полтора часа, неплохо, держишь темп",
+        "7200": "Продолжай в том же духе, буб",
+        "10800": "Не может быть, что б ты столько работал, нубик",
+        "14400": "Ты меня пугаешь, иди отдохни",
+        "18000": "Нубик, иди спать, быстро, ты ж так помрешь"
+    }
+};
+
+
 let play = false;
 let timeout = false;
 
@@ -17,7 +33,6 @@ let modalFlag = false;
 
 function dell(i){
     acheievements.my.splice(i, 1);
-    console.log(acheievements.my)
     localStorage.setItem("achievements", JSON.stringify(acheievements));
     achAppend(acheievements.my);
 }
@@ -69,17 +84,20 @@ document.getElementById("timer-play").addEventListener("click", () => {
         document.getElementById("anime_girl_img").src = "./img/anime2-transformed.png";
         play = true;
         playEvent = setInterval(() => {
+            catPhrase.total++;
+            if (Object.keys(catPhrase.phrases).includes(`${catPhrase.total}`)){
+                document.getElementById("phrase").style.visibility="visible";
+                document.getElementById("phrase").innerHTML = catPhrase.phrases[catPhrase.total];
+                setTimeout(() => {document.getElementById("phrase").style.visibility="hidden";}, 10000);
+            } 
             if (time.seconds == 59){
                 time.seconds = 0;
-                document.getElementById("phrase").style.visibility="visible";
-                timeout = true;
                 document.getElementById("timer-seconds").innerHTML = '0' + time.seconds;
                 if (time.minutes == 59){
                     time.minutes = 0;
                     document.getElementById("timer-minutes").innerHTML = '0' + time.minutes + ':';
                     time.hours++;
                     document.getElementById("timer-hours").innerHTML = time.hours < 10 ? '0' + time.hours + ':' : time.hours + ':';
-                    time.total = 0;
                 }
                 else{
                     time.minutes++;
@@ -87,17 +105,12 @@ document.getElementById("timer-play").addEventListener("click", () => {
                 }
             }
             else{
-                if (timeout){
-                    setTimeout(() => {document.getElementById("phrase").style.visibility="hidden";}, 10000);
-                    timeout = false;
-                }
                 time.seconds++;
                 document.getElementById("timer-seconds").innerHTML = time.seconds < 10 ? '0' + time.seconds : time.seconds;
             }
-            time.total++;
+            
             localStorage.setItem("time", JSON.stringify(time))
-            console.log(-90 + time.total * 2 + "px")
-            cat.style.left = -90 + time.total * ((window.innerWidth - 140) / 3600) + "px";
+            cat.style.left = -90 + (catPhrase.total % 3600) * ((window.innerWidth - 140) / 3600) + "px";
         }, 1000);
     }
     else{
@@ -113,7 +126,6 @@ document.getElementById("timer-stop").addEventListener("click", () => {
         clearInterval(playEvent);
         play = false;
         localStorage.setItem("time", JSON.stringify(time))
-        console.log(3)
         document.getElementById("anime_girl_img").src = "./img/anime1-transformed.png";
     }
 });
@@ -129,7 +141,7 @@ document.getElementById("timer-restart").addEventListener("click", () => {
     document.getElementById("timer-seconds").innerHTML = '0' + time.seconds;
     document.getElementById("timer-minutes").innerHTML = '0' + time.minutes + ':';
     document.getElementById("timer-hours").innerHTML = '0' + time.hours + ':';
-    time.total = 0;
+    catPhrase.total = 0;
     cat.style.left = "-90px"
     localStorage.setItem("time", JSON.stringify(time))
     document.getElementById("anime_girl_img").src = "./img/anime1-transformed.png";
@@ -151,7 +163,7 @@ document.getElementById("timer-hours").innerHTML = time.hours < 10 ? '0' + time.
 
 
 const cat = document.getElementById("cat")
-cat.style.left = -90 + time.total * (window.innerWidth / 3600) + "px";
+cat.style.left = -90 + (catPhrase.total % 3600) * (window.innerWidth / 3600) + "px";
 
 
 
